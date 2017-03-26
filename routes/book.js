@@ -18,4 +18,12 @@ router.post('/', (req, res) => {
     })
 })
 
+router.delete('/:id', (req, res) => {
+  var dID = req.params.id
+  knex('booknames').where('id', dID).del().returning(['author', 'item', 'num_page'])
+    .then(result => {
+      res.send(result)
+    })
+})
+
 module.exports = router
